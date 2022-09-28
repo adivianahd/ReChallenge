@@ -1,13 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React, {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -18,7 +8,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
+import styled from 'styled-components/native';
 import {
   Colors,
   DebugInstructions,
@@ -26,6 +16,10 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+const StyledText = styled.Text`
+  color: #f00;
+`;
 
 const Section: React.FC<
   PropsWithChildren<{
@@ -35,15 +29,7 @@ const Section: React.FC<
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
+      <StyledText>{title}</StyledText>
       <Text
         style={[
           styles.sectionDescription,
