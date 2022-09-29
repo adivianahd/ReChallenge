@@ -1,15 +1,15 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, StatusBar, View} from 'react-native';
-import Text from './components/Text';
+import {SafeAreaView, ScrollView, StatusBar} from 'react-native';
+import {Text, Card} from './components';
 
 const App = () => {
   return (
     <SafeAreaView>
       <StatusBar />
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View>
-          <Text class={'MUTED'}> perrooo</Text>
-        </View>
+        <Card size="M" color="YELLOW">
+          <Text class="TITLE"> Pokemon!</Text>
+        </Card>
       </ScrollView>
     </SafeAreaView>
   );
