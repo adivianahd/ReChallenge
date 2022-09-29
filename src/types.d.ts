@@ -20,17 +20,16 @@ export interface Pokemon {
 }
 
 export interface PokemonList {
-  count:    number;
-  next:     string;
+  count: number;
+  next: string;
   previous: null;
-  results:  PokemonItem[];
- }
- 
- export interface PokemonItem {
+  results: PokemonItem[];
+}
+
+export interface PokemonItem {
   name: string;
-  url:  string;
- }
- 
+  url: string;
+}
 
 export interface Ability {
   ability: Species;
@@ -75,7 +74,7 @@ export interface Versions {
   'generation-iii': GenerationIii;
   'generation-iv': GenerationIv;
   'generation-v': GenerationV;
-  'generation-vi': {[key: string]: Home};
+  'generation-vi': { [key: string]: Home };
   'generation-vii': GenerationVii;
   'generation-viii': GenerationViii;
 }

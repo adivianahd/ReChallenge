@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
 type Size = 'S' | 'M' | 'L';
 type Color = 'BLUE' | 'GREEN' | 'YELLOW' | 'WHITE' | 'ORANGE';

@@ -1,6 +1,6 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, StatusBar} from 'react-native';
-import {Text, Card} from './components';
+import { SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import { Text, Card } from './components';
 
 const App = () => {
   return (

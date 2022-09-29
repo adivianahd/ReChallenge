@@ -1,4 +1,5 @@
-import styled, {css} from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
+import { Text as RNText } from 'react-native';
 
 type FontClass = 'TITLE' | 'COMMON' | 'MUTED' | 'STRONG';
 
@@ -37,6 +38,6 @@ interface TextProps {
   class: FontClass;
 }
 
-export default styled.Text<TextProps>`
+export default styled(RNText)<TextProps>`
   ${(props: TextProps) => fontClasses[props.class] || ''}
 `;
