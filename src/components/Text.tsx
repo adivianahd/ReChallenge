@@ -1,20 +1,36 @@
 import styled, {css} from 'styled-components/native';
 
-type FontClass = 'XL' | 'XXL';
+type FontClass = 'TITLE' | 'COMMON' | 'MUTED' | 'STRONG';
 
-const XXL = css`
+const TITLE = css`
   font-size: 30px;
-  color: #0f0;
+  font-weight: 700;
+  color: #333333;
 `;
 
-const XL = css`
-  font-size: 25px;
-  color: #f00;
+const COMMON = css`
+  font-size: 18px;
+  font-weight: 400;
+  color: #333333;
+`;
+
+const MUTED = css`
+  font-size: 18px;
+  font-weight: 600;
+  color: #919191;
+`;
+
+const STRONG = css`
+  font-weight: 800;
+  font-size: 18px;
+  color: #333333;
 `;
 
 const fontClasses = {
-  XL,
-  XXL,
+  TITLE,
+  COMMON,
+  MUTED,
+  STRONG,
 };
 
 interface TextProps {
@@ -22,6 +38,5 @@ interface TextProps {
 }
 
 export default styled.Text<TextProps>`
-  font-weight: 800;
   ${(props: TextProps) => fontClasses[props.class] || ''}
 `;
