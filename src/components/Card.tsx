@@ -12,7 +12,7 @@ const M = css`
 `;
 
 const L = css`
-  height: 250px;
+  height: 320;
 `;
 
 const BLUE = css`
