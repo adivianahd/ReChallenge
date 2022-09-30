@@ -1,9 +1,13 @@
-import React from 'react';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaView, ScrollView, StatusBar} from 'react-native';
 import {Text, Card} from './components';
 import Image from './components/Image';
 
-const App = () => {
+const Stack = createNativeStackNavigator();
+
+const HomeScreen = () => {
   return (
     <SafeAreaView>
       <StatusBar />
@@ -39,4 +43,15 @@ const App = () => {
     </SafeAreaView>
   );
 };
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
 export default App;
