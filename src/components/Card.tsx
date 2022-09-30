@@ -1,18 +1,14 @@
 import styled, {css} from 'styled-components/native';
 
-type Size = 'S' | 'M' | 'L';
+type Size = 'S' | 'M';
 type Color = 'BLUE' | 'GREEN' | 'YELLOW' | 'WHITE' | 'ORANGE';
 
 const S = css`
-  height: 60px;
+  flex-direction: row;
 `;
 
 const M = css`
-  height: 120px;
-`;
-
-const L = css`
-  height: 320;
+  flex-direction: row;
 `;
 
 const BLUE = css`
@@ -43,7 +39,6 @@ const ORANGE = css`
 const sizes = {
   S,
   M,
-  L,
 };
 
 const colors = {
@@ -60,8 +55,11 @@ interface CardProps {
 }
 
 export default styled.View<CardProps>`
+  display: flex;
+  align-items: center;
   border-radius: 4px;
   border: 1px solid #e4e4e4;
+  padding: 12px;
   ${(props: CardProps) => sizes[props.size] || ''}
   ${(props: CardProps) => colors[props.color] || WHITE}
 `;
