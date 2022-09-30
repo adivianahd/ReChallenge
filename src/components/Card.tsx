@@ -1,7 +1,16 @@
 import styled, {css} from 'styled-components/native';
 
 type Size = 'S' | 'M';
-type Color = 'BLUE' | 'GREEN' | 'YELLOW' | 'WHITE' | 'ORANGE';
+type Color =
+  | 'BLUE'
+  | 'GREEN'
+  | 'YELLOW'
+  | 'WHITE'
+  | 'ORANGE'
+  | 'PINK'
+  | 'RED'
+  | 'VIOLET'
+  | 'BROWN';
 
 const S = css`
   flex-direction: row;
@@ -36,6 +45,26 @@ const ORANGE = css`
   border-color: #c6480c;
 `;
 
+const PINK = css`
+  background-color: #ffeaf1;
+  border-color: #c40f4d;
+`;
+
+const RED = css`
+  background-color: #ffeceb;
+  border-color: #b40d15;
+`;
+
+const VIOLET = css`
+  background-color: #eaebff;
+  border-color: #00027d;
+`;
+
+const BROWN = css`
+  background-color: #ffeedb;
+  border-color: #683502;
+`;
+
 const sizes = {
   S,
   M,
@@ -47,6 +76,10 @@ const colors = {
   YELLOW,
   WHITE,
   ORANGE,
+  PINK,
+  RED,
+  VIOLET,
+  BROWN,
 };
 
 interface CardProps {

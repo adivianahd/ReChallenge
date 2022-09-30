@@ -1,16 +1,31 @@
-import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import * as React from 'react';
 import {Pressable, SafeAreaView, ScrollView, StatusBar} from 'react-native';
-import {Text, Card} from './components';
-import Image from './components/Image';
+import {
+  createSharedElementStackNavigator,
+  SharedElement,
+} from 'react-navigation-shared-element';
 import {Provider, useSelector} from 'react-redux';
+import {Card, Text} from './components';
+import Image from './components/Image';
 import {store, useAppDispatch} from './redux';
 import {fetchPokemons} from './redux/actions';
 
-const Stack = createNativeStackNavigator();
+type RootStackParamList = {
+  HomeScreen: {};
+  DetailScreen: {pokemon: Pokemon};
+};
 
-const HomeScreen = () => {
+const Stack = createSharedElementStackNavigator<RootStackParamList>();
+type HomeScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'HomeScreen',
+  'MyStack'
+>;
+
+const HomeScreen = (props: HomeScreenProps) => {
+  const {navigation} = props;
   const dispatch = useAppDispatch();
   const pokemons = useSelector(
     (state: RootState) => state.pokemonReducer.pokemons,
@@ -30,6 +45,41 @@ const HomeScreen = () => {
           })}
         />
         {pokemons.map(pokemon => (
+          <Pressable
+            onPress={() => navigation.push('DetailScreen', {pokemon})}
+            key={`pokemon.${pokemon.id}`}>
+            <SharedElement id={`pokemon.${pokemon.id}`}>
+              <Card size="M" color="YELLOW">
+                <Image
+                  size="M"
+                  source={{
+                    uri: pokemon.sprites.front_default,
+                  }}
+                />
+                <Text class="TITLE">{pokemon.name}</Text>
+              </Card>
+            </SharedElement>
+          </Pressable>
+        ))}
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+type DetailScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'DetailScreen',
+  'MyStack'
+>;
+
+const DetailScreen = (props: DetailScreenProps) => {
+  const {pokemon} = props.route.params;
+
+  return (
+    <SafeAreaView>
+      <StatusBar />
+      <ScrollView contentInsetAdjustmentBehavior="automatic">
+        <SharedElement id={`pokemon.${pokemon.id}`}>
           <Card size="M" color="YELLOW">
             <Image
               size="M"
@@ -39,7 +89,7 @@ const HomeScreen = () => {
             />
             <Text class="TITLE">{pokemon.name}</Text>
           </Card>
-        ))}
+        </SharedElement>
       </ScrollView>
     </SafeAreaView>
   );
@@ -50,7 +100,15 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen
+            name="DetailScreen"
+            component={DetailScreen}
+            sharedElements={route => {
+              const {pokemon} = route.params;
+              return [`pokemon.${pokemon.id}`];
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
