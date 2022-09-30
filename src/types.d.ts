@@ -1,22 +1,24 @@
-export interface Pokemon {
-  abilities: Ability[];
-  base_experience: number;
-  forms: Species[];
-  game_indices: GameIndex[];
-  height: number;
-  held_items: any[];
-  id: number;
-  is_default: boolean;
-  location_area_encounters: string;
-  moves: Move[];
-  name: string;
-  order: number;
-  past_types: any[];
-  species: Species;
-  sprites: Sprites;
-  stats: Stat[];
-  types: Type[];
-  weight: number;
+declare global {
+  interface Pokemon {
+    abilities: Ability[];
+    base_experience: number;
+    forms: Species[];
+    game_indices: GameIndex[];
+    height: number;
+    held_items: any[];
+    id: number;
+    is_default: boolean;
+    location_area_encounters: string;
+    moves: Move[];
+    name: string;
+    order: number;
+    past_types: any[];
+    species: Species;
+    sprites: Sprites;
+    stats: Stat[];
+    types: Type[];
+    weight: number;
+  }
 }
 
 export interface PokemonList {
@@ -74,7 +76,7 @@ export interface Versions {
   'generation-iii': GenerationIii;
   'generation-iv': GenerationIv;
   'generation-v': GenerationV;
-  'generation-vi': { [key: string]: Home };
+  'generation-vi': {[key: string]: Home};
   'generation-vii': GenerationVii;
   'generation-viii': GenerationViii;
 }

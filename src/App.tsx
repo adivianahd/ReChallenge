@@ -1,44 +1,45 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {SafeAreaView, ScrollView, StatusBar} from 'react-native';
+import {Pressable, SafeAreaView, ScrollView, StatusBar} from 'react-native';
 import {Text, Card} from './components';
 import Image from './components/Image';
+import {Provider, useSelector} from 'react-redux';
+import {store, useAppDispatch} from './redux';
+import {fetchPokemons} from './redux/actions';
 
 const Stack = createNativeStackNavigator();
 
 const HomeScreen = () => {
+  const dispatch = useAppDispatch();
+  const pokemons = useSelector(
+    (state: RootState) => state.pokemonReducer.pokemons,
+  );
   return (
     <SafeAreaView>
       <StatusBar />
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <Card size="M" color="YELLOW">
-          <Image
-            size="M"
-            source={{
-              uri: 'https://www.pngkey.com/png/detail/21-217353_fox-png-transparent-free-images-imagen-de-un.png',
-            }}
-          />
-          <Text class="TITLE"> Pokemon!</Text>
-        </Card>
-        <Card size="S" color="BLUE">
-          <Image
-            size="S"
-            source={{
-              uri: 'https://www.pngkey.com/png/detail/21-217353_fox-png-transparent-free-images-imagen-de-un.png',
-            }}
-          />
-          <Text class="TITLE"> Pokemon!</Text>
-        </Card>
-        <Card size="L" color="ORANGE">
-          <Text class="TITLE"> Pokemon!</Text>
-          <Image
-            size="L"
-            source={{
-              uri: 'https://www.pngkey.com/png/detail/21-217353_fox-png-transparent-free-images-imagen-de-un.png',
-            }}
-          />
-        </Card>
+        <Pressable
+          onPress={() => {
+            dispatch(fetchPokemons);
+          }}
+          style={({pressed}) => ({
+            width: 50,
+            height: 50,
+            backgroundColor: pressed ? '#fcc' : '#ccc',
+          })}
+        />
+        {pokemons.map(pokemon => (
+          <Card size="M" color="YELLOW">
+            <Image
+              size="M"
+              source={{
+                uri: pokemon.sprites.front_default,
+              }}
+            />
+            <Text class="TITLE">{pokemon.name}</Text>
+          </Card>
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
@@ -46,11 +47,13 @@ const HomeScreen = () => {
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
