@@ -7,24 +7,20 @@ import {
   SharedElement,
 } from 'react-navigation-shared-element';
 import {Provider, useSelector} from 'react-redux';
-import {Card, Text} from './components';
+import {Card, PokeCard, Text} from './components';
 import Image from './components/Image';
 import {store, useAppDispatch} from './redux';
 import {fetchPokemons} from './redux/actions';
 
 type RootStackParamList = {
-  HomeScreen: {};
-  DetailScreen: {pokemon: Pokemon};
+  Home: {};
+  Detail: {pokemon: Pokemon};
 };
 
 const Stack = createSharedElementStackNavigator<RootStackParamList>();
-type HomeScreenProps = NativeStackScreenProps<
-  RootStackParamList,
-  'HomeScreen',
-  'MyStack'
->;
+type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home', 'MyStack'>;
 
-const HomeScreen = (props: HomeScreenProps) => {
+const Home = (props: HomeProps) => {
   const {navigation} = props;
   const dispatch = useAppDispatch();
   const pokemons = useSelector(
@@ -46,18 +42,17 @@ const HomeScreen = (props: HomeScreenProps) => {
         />
         {pokemons.map(pokemon => (
           <Pressable
-            onPress={() => navigation.push('DetailScreen', {pokemon})}
+            onPress={() => navigation.push('Detail', {pokemon})}
             key={`pokemon.${pokemon.id}`}>
             <SharedElement id={`pokemon.${pokemon.id}`}>
-              <Card size="M" color="YELLOW">
-                <Image
-                  size="M"
-                  source={{
-                    uri: pokemon.sprites.front_default,
-                  }}
-                />
-                <Text class="TITLE">{pokemon.name}</Text>
-              </Card>
+              <PokeCard
+                size="M"
+                image={{
+                  uri: pokemon.sprites.front_default,
+                }}
+                name={pokemon.name}
+                type={pokemon.types[0].type.name}
+              />
             </SharedElement>
           </Pressable>
         ))}
@@ -66,13 +61,13 @@ const HomeScreen = (props: HomeScreenProps) => {
   );
 };
 
-type DetailScreenProps = NativeStackScreenProps<
+type DetailProps = NativeStackScreenProps<
   RootStackParamList,
-  'DetailScreen',
+  'Detail',
   'MyStack'
 >;
 
-const DetailScreen = (props: DetailScreenProps) => {
+const Detail = (props: DetailProps) => {
   const {pokemon} = props.route.params;
 
   return (
@@ -100,10 +95,10 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen
-            name="DetailScreen"
-            component={DetailScreen}
+            name="Detail"
+            component={Detail}
             sharedElements={route => {
               const {pokemon} = route.params;
               return [`pokemon.${pokemon.id}`];
