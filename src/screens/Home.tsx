@@ -1,6 +1,7 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import * as React from 'react';
-import {Pressable, SafeAreaView, ScrollView, StatusBar} from 'react-native';
+import {Pressable, SafeAreaView, StatusBar} from 'react-native';
+import {FlatList} from 'react-native-gesture-handler';
 import {SharedElement} from 'react-navigation-shared-element';
 import {useSelector} from 'react-redux';
 import {PokeCard} from '../components';
@@ -20,37 +21,36 @@ const Home = (props: HomeProps) => {
   const pokemons = useSelector(
     (state: RootState) => state.pokemonReducer.pokemons,
   );
+  React.useEffect(() => {
+    dispatch(fetchPokemons);
+  });
+
   return (
     <SafeAreaView>
       <StatusBar />
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <Pressable
-          onPress={() => {
-            dispatch(fetchPokemons);
-          }}
-          style={({pressed}) => ({
-            width: 50,
-            height: 50,
-            backgroundColor: pressed ? '#fcc' : '#ccc',
-          })}
-        />
-        {pokemons.map(pokemon => (
+      <FlatList
+        onEndReachedThreshold={0.1}
+        onEndReached={() => dispatch(fetchPokemons)}
+        data={pokemons}
+        renderItem={item => (
           <Pressable
-            onPress={() => navigation.push('Focus', {pokemon})}
-            key={`pokemon.${pokemon.id}`}>
-            <SharedElement id={`pokemon.${pokemon.id}`}>
+            onPress={() => navigation.push('Focus', {pokemon: item.item})}
+            key={`pokemon.${item.item.id}`}>
+            <SharedElement id={`pokemon.${item.item.id}`}>
               <PokeCard
+                key={item.item.id}
                 size="M"
                 image={{
-                  uri: pokemon.sprites.front_default,
+                  uri: item.item.sprites.front_default,
                 }}
-                name={pokemon.name}
-                type={pokemon.types[0].type.name}
+                name={item.item.name}
+                type={item.item.types[0].type.name}
               />
             </SharedElement>
           </Pressable>
-        ))}
-      </ScrollView>
+        )}
+        keyExtractor={item => item.name}
+      />
     </SafeAreaView>
   );
 };
