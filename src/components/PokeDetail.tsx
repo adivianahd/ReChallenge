@@ -40,7 +40,7 @@ const PokeDetail = ({pokemon}: Props) => {
   return (
     <Detail>
       {keyValue.map(({title, value}) => (
-        <Row>
+        <Row key={title}>
           <Text class="STRONG">{Capitalize(title)}: </Text>
           <Text class="COMMON">{Capitalize(value)}</Text>
         </Row>
