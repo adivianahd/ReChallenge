@@ -23,7 +23,8 @@ const Home = (props: HomeProps) => {
   );
   React.useEffect(() => {
     dispatch(fetchPokemons);
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <SafeAreaView>
