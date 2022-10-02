@@ -1,13 +1,6 @@
 import * as React from 'react';
 import {Card, Text, Image} from './index';
 
-interface CardProps {
-  size: string;
-  image: {uri: string};
-  type: string;
-  name: string;
-}
-
 const pokeColor = {
   water: 'BLUE',
   ice: 'BLUE',
@@ -28,6 +21,13 @@ const pokeColor = {
   rock: 'BROWN',
   dark: 'BROWN',
 };
+
+interface CardProps {
+  size: string;
+  image: {uri: string};
+  type: SpecieName;
+  name: string;
+}
 
 const PokeCard = (props: CardProps) => {
   return (

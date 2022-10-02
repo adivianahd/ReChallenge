@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {Pokemon, PokemonList} from '../types';
 
 const axiosInstance = axios.create({
   baseURL: 'https://pokeapi.co/api/v2',

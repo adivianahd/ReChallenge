@@ -19,13 +19,33 @@ declare global {
     types: Type[];
     weight: number;
   }
-}
 
-export interface PokemonList {
-  count: number;
-  next: string;
-  previous: null;
-  results: PokemonItem[];
+  type SpecieName =
+    | 'water'
+    | 'ice'
+    | 'grass'
+    | 'bug'
+    | 'electric'
+    | 'ground'
+    | 'normal'
+    | 'stell'
+    | 'fire'
+    | 'psychic'
+    | 'fairy'
+    | 'flying'
+    | 'fighting'
+    | 'poison'
+    | 'dragon'
+    | 'ghost'
+    | 'rock'
+    | 'dark';
+
+  interface PokemonList {
+    count: number;
+    next: string;
+    previous: null;
+    results: PokemonItem[];
+  }
 }
 
 export interface PokemonItem {
@@ -40,7 +60,7 @@ export interface Ability {
 }
 
 export interface Species {
-  name: string;
+  name: SpecieName;
   url: string;
 }
 
