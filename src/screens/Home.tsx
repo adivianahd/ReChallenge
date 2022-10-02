@@ -31,9 +31,11 @@ const Home = (props: HomeProps) => {
     ? ['Favorites', ...favorites, 'All', ...pokemons]
     : pokemons;
 
+  const stickyHeader = favorites.length ? [0, favorites.length + 1] : undefined;
+
   return (
     <FlatList<Pokemon | string>
-      stickyHeaderIndices={[0, favorites.length + 1]}
+      stickyHeaderIndices={stickyHeader}
       onEndReachedThreshold={0.1}
       onEndReached={() => dispatch(fetchPokemons)}
       data={data}
