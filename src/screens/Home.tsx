@@ -21,6 +21,7 @@ const Home = (props: HomeProps) => {
   const pokemons = useSelector(
     (state: RootState) => state.pokemonReducer.pokemons,
   );
+
   React.useEffect(() => {
     dispatch(fetchPokemons);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -29,23 +30,24 @@ const Home = (props: HomeProps) => {
   return (
     <SafeAreaView>
       <StatusBar />
-      <FlatList
+      <FlatList<Pokemon>
         onEndReachedThreshold={0.1}
         onEndReached={() => dispatch(fetchPokemons)}
         data={pokemons}
-        renderItem={item => (
+        renderItem={({item: pokemon}) => (
           <Pressable
-            onPress={() => navigation.push('Focus', {pokemon: item.item})}
-            key={`pokemon.${item.item.id}`}>
-            <SharedElement id={`pokemon.${item.item.id}`}>
+            onPress={() => navigation.push('Focus', {pokemon})}
+            key={`pokemon.${pokemon.id}`}>
+            <SharedElement id={`pokemon.${pokemon.id}`}>
               <PokeCard
-                key={item.item.id}
+                key={pokemon.id}
+                id={pokemon.id}
                 size="M"
                 image={{
-                  uri: item.item.sprites.front_default,
+                  uri: pokemon.sprites.front_default,
                 }}
-                name={item.item.name}
-                type={item.item.types[0].type.name}
+                name={pokemon.name}
+                type={pokemon.types[0].type.name}
               />
             </SharedElement>
           </Pressable>

@@ -26,7 +26,23 @@ function App() {
             component={Focus}
             sharedElements={route => {
               const {pokemon} = route.params;
-              return [`pokemon.${pokemon.id}`];
+              return [
+                {
+                  id: `pokemon.${pokemon.id}.image`,
+                  animation: 'fade-in',
+                  resize: 'stretch',
+                },
+                {
+                  id: `pokemon.${pokemon.id}.name`,
+                  animation: 'fade-in',
+                  resize: 'clip',
+                },
+                {
+                  id: `pokemon.${pokemon.id}.details`,
+                  animation: 'fade-in',
+                  resize: 'clip',
+                },
+              ];
             }}
           />
           <Stack.Screen name="Detail" component={Detail} />

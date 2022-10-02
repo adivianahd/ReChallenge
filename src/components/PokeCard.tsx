@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {Capitalize} from '../helpers/utils';
+import {FavoriteButton} from './FavoriteButton';
 import {Card, Text, Image} from './index';
 
 const pokeColor = {
@@ -27,13 +29,15 @@ interface CardProps {
   image: {uri: string};
   type: SpecieName;
   name: string;
+  id: Pokemon['id'];
 }
 
 const PokeCard = (props: CardProps) => {
   return (
     <Card size={props.size} color={pokeColor[props.type] || 'white'}>
+      <FavoriteButton id={props.id} />
       <Image size={props.size} source={props.image} />
-      <Text class="TITLE">{props.name}</Text>
+      <Text class="TITLE">{Capitalize(props.name)}</Text>
     </Card>
   );
 };

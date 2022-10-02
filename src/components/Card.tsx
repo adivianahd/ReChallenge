@@ -14,10 +14,12 @@ type Color =
 
 const S = css`
   flex-direction: row;
+  margin: 4px 24px;
 `;
 
 const M = css`
   flex-direction: row;
+  margin: 8px 24px;
 `;
 
 const BLUE = css`

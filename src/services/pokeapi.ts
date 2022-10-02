@@ -9,7 +9,7 @@ async function healthCheck() {
   return response;
 }
 
-async function getById(id: number): Promise<Pokemon> {
+async function getById(id: number): Promise<PokemonResponse> {
   const response = await axiosInstance.get(`pokemon/${id}`);
   return response.data;
 }
@@ -18,7 +18,7 @@ async function getPage(
   limit: number = 10,
   offset: number = 1,
 ): Promise<PokemonList> {
-  const response = await axiosInstance.get(`pokemon`, {
+  const response = await axiosInstance.get('pokemon', {
     params: {limit, offset},
   });
   return response.data;

@@ -47,8 +47,8 @@ describe('Poke api Service', () => {
 
     // Asserts
     expect(response.results.length).toEqual(EXPECTED_RESULTS_LENGTH);
-    expect(response.results[0]).toBeDefined()
-    expect(response.results[0].name).toBeDefined()
-    expect(response.results[0].url).toBeDefined()
+    expect(response.results[0]).toBeDefined();
+    expect(response.results[0].name).toBeDefined();
+    expect(response.results[0].url).toBeDefined();
   }, 1000);
 });

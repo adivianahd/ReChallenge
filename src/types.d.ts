@@ -1,5 +1,5 @@
 declare global {
-  interface Pokemon {
+  interface PokemonResponse {
     abilities: Ability[];
     base_experience: number;
     forms: Species[];
@@ -19,6 +19,8 @@ declare global {
     types: Type[];
     weight: number;
   }
+
+  type Pokemon = Pick<PokemonResponse, 'id' | 'name' | 'sprites' | 'types'>;
 
   type SpecieName =
     | 'water'

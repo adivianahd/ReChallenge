@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components/native';
-import { Text as RNText } from 'react-native';
+import styled, {css} from 'styled-components/native';
+import {Text as RNText} from 'react-native';
 
 type FontClass = 'TITLE' | 'COMMON' | 'MUTED' | 'STRONG';
 

@@ -1,14 +1,20 @@
 import styled, {css} from 'styled-components/native';
 
-type Size = 'S' | 'M' | 'L';
+type Size = 'XS' | 'S' | 'M' | 'L';
+
+const XS = css`
+  width: 32px;
+  height: 32px;
+`;
+
 const S = css`
-  width: 80px;
+  width: 75px;
   height: 55px;
 `;
 
 const M = css`
   background-image: cover;
-  width: 150px;
+  width: 100px;
   height: 115px;
 `;
 
@@ -18,6 +24,7 @@ const L = css`
 `;
 
 const sizes = {
+  XS,
   S,
   M,
   L,
@@ -28,5 +35,6 @@ interface ImageProps {
 }
 
 export default styled.Image<ImageProps>`
+  margin-right: 5px;
   ${(props: ImageProps) => sizes[props.size] || ''}
 `;
