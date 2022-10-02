@@ -1,8 +1,8 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import * as React from 'react';
 import {SafeAreaView, ScrollView, StatusBar} from 'react-native';
-import {SharedElement} from 'react-navigation-shared-element';
-import {Text, Card, Image} from '../components';
+import {PokeCard} from '../components';
+import PokeDetail from '../components/PokeDetail';
 
 type RootStackParamList = {
   Home: {};
@@ -22,17 +22,14 @@ const Detail = (props: DetailProps) => {
     <SafeAreaView>
       <StatusBar />
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <SharedElement id={`pokemon.${pokemon.id}`}>
-          <Card size="M" color="YELLOW">
-            <Image
-              size="M"
-              source={{
-                uri: pokemon.sprites.front_default,
-              }}
-            />
-            <Text class="TITLE">{pokemon.name}</Text>
-          </Card>
-        </SharedElement>
+        <PokeCard
+          id={pokemon.id}
+          name={pokemon.name}
+          image={{uri: pokemon.sprites.front_default}}
+          size="M"
+          type={pokemon.types[0].type.name}
+        />
+        <PokeDetail label="pepe" detail="peres" />
       </ScrollView>
     </SafeAreaView>
   );
