@@ -22,7 +22,7 @@ const MUTED = css`
 `;
 
 const STRONG = css`
-  font-weight: 800;
+  font-weight: 700;
   font-size: 18px;
   color: #333333;
 `;

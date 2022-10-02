@@ -1,12 +1,13 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import * as React from 'react';
-import {Pressable, SafeAreaView, StatusBar} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {Pressable} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {SharedElement} from 'react-navigation-shared-element';
 import {useSelector} from 'react-redux';
-import {PokeCard} from '../components';
+import {Card, PokeCard, Text} from '../components';
 import {useAppDispatch} from '../redux';
 import {fetchPokemons} from '../redux/actions';
+import {getFavorites, getPokemons} from '../redux/selectors';
 
 type RootStackParamList = {
   Home: {};
@@ -18,23 +19,30 @@ type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home', 'MyStack'>;
 const Home = (props: HomeProps) => {
   const {navigation} = props;
   const dispatch = useAppDispatch();
-  const pokemons = useSelector(
-    (state: RootState) => state.pokemonReducer.pokemons,
-  );
+  const pokemons = useSelector(getPokemons);
+  const favorites = useSelector(getFavorites);
 
   React.useEffect(() => {
     dispatch(fetchPokemons);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const data = favorites.length
+    ? ['Favorites', ...favorites, 'All', ...pokemons]
+    : pokemons;
+
   return (
-    <SafeAreaView>
-      <StatusBar />
-      <FlatList<Pokemon>
-        onEndReachedThreshold={0.1}
-        onEndReached={() => dispatch(fetchPokemons)}
-        data={pokemons}
-        renderItem={({item: pokemon}) => (
+    <FlatList<Pokemon | string>
+      stickyHeaderIndices={[0, favorites.length + 1]}
+      onEndReachedThreshold={0.1}
+      onEndReached={() => dispatch(fetchPokemons)}
+      data={data}
+      renderItem={({item: pokemon}) =>
+        typeof pokemon === 'string' ? (
+          <Card>
+            <Text class="MUTED">{pokemon}</Text>
+          </Card>
+        ) : (
           <Pressable
             onPress={() => navigation.push('Focus', {pokemon})}
             key={`pokemon.${pokemon.id}`}>
@@ -51,10 +59,12 @@ const Home = (props: HomeProps) => {
               />
             </SharedElement>
           </Pressable>
-        )}
-        keyExtractor={item => item.name}
-      />
-    </SafeAreaView>
+        )
+      }
+      keyExtractor={(item: Pokemon | string) =>
+        typeof item === 'string' ? item : item.name
+      }
+    />
   );
 };
 

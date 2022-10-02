@@ -1,6 +1,9 @@
 export const getPokemons = ({
-  pokemonReducer: {pokemons},
-}: RootState): Pokemon[] => pokemons;
+  pokemonReducer: {pokemons, favorites},
+}: RootState): Pokemon[] =>
+  pokemons.filter(
+    pokemon => !favorites.find(fpokemon => fpokemon.id === pokemon.id),
+  );
 
 export const getFavorites = ({
   pokemonReducer: {favorites},

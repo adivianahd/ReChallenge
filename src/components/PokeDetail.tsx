@@ -1,12 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import {Capitalize} from '../helpers/utils';
 import {Text} from './index';
-
-interface DetailProps {
-  label: string;
-  detail: string;
-}
 
 const Detail = styled.View`
   border-radius: 4px;
@@ -14,19 +9,42 @@ const Detail = styled.View`
   padding: 12px;
   background-color: #ffffff;
   border-color: #e4e4e4;
-  flex-direction: row;
-  margin: 8px 24px;
-
-  &.strong: {
-    background-color: ·f00;
-  }
+  margin-vertical: 8px;
 `;
 
-const PokeDetail = (props: DetailProps) => {
+const Row = styled.View`
+  flex-direction: row;
+  margin-bottom: 10px;
+  border-bottom-width: 0.5px;
+  padding-bottom: 10px;
+  border-color: #ddd;
+`;
+
+interface Props {
+  pokemon: Pokemon;
+}
+
+const PokeDetail = ({pokemon}: Props) => {
+  const keyValue = [
+    {title: 'id', value: pokemon.id.toString()},
+    {title: 'name', value: pokemon.name},
+    {
+      title: 'abilities',
+      value: pokemon.abilities.map(a => a.ability.name).join(', '),
+    },
+    {title: 'height', value: `${pokemon.height / 10}mt`},
+    {title: 'Base Experience', value: pokemon.base_experience.toString()},
+    {title: 'type', value: pokemon.types[0].type.name},
+    {title: 'weight', value: `${pokemon.weight / 10}Kg`},
+  ];
   return (
     <Detail>
-      <Text class="STRONG">{Capitalize(props.label)}: </Text>
-      <Text class="COMMON">{Capitalize(props.detail)}</Text>
+      {keyValue.map(({title, value}) => (
+        <Row>
+          <Text class="STRONG">{Capitalize(title)}: </Text>
+          <Text class="COMMON">{Capitalize(value)}</Text>
+        </Row>
+      ))}
     </Detail>
   );
 };

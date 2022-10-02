@@ -1,26 +1,36 @@
 declare global {
   interface PokemonResponse {
+    id: number;
+    name: string;
     abilities: Ability[];
+    height: number;
     base_experience: number;
+    moves: Move[];
+    sprites: Sprites;
+    types: Type[];
+    weight: number;
     forms: Species[];
     game_indices: GameIndex[];
-    height: number;
     held_items: any[];
-    id: number;
     is_default: boolean;
     location_area_encounters: string;
-    moves: Move[];
-    name: string;
     order: number;
     past_types: any[];
     species: Species;
-    sprites: Sprites;
     stats: Stat[];
-    types: Type[];
-    weight: number;
   }
 
-  type Pokemon = Pick<PokemonResponse, 'id' | 'name' | 'sprites' | 'types'>;
+  type Pokemon = Pick<
+    PokemonResponse,
+    | 'id'
+    | 'name'
+    | 'abilities'
+    | 'height'
+    | 'base_experience'
+    | 'sprites'
+    | 'types'
+    | 'weight'
+  >;
 
   type SpecieName =
     | 'water'

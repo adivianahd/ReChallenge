@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {SharedElement} from 'react-navigation-shared-element';
+import styled from 'styled-components';
 import {Capitalize} from '../helpers/utils';
 import {FavoriteButton} from './FavoriteButton';
 import {Card, Text, Image} from './index';
@@ -25,20 +26,28 @@ const pokeColor = {
   dark: 'BROWN',
 };
 
+const FavoriteWrapper = styled(SharedElement)`
+  position: absolute;
+  right: 5px;
+  top: 5px;
+`;
 interface CardProps {
   size: string;
   image: {uri: string};
   type: SpecieName;
   name: string;
   id: Pokemon['id'];
+  withFavorite?: Boolean;
 }
 
 const PokeCard = (props: CardProps) => {
   return (
     <Card size={props.size} color={pokeColor[props.type] || 'white'}>
-      <SharedElement id={`pokemon.${props.id}.favorite`}>
-        <FavoriteButton id={props.id} />
-      </SharedElement>
+      {props.withFavorite && (
+        <FavoriteWrapper id={`pokemon.${props.id}.favorite`} style={{}}>
+          <FavoriteButton id={props.id} />
+        </FavoriteWrapper>
+      )}
       <SharedElement id={`pokemon.${props.id}.image`}>
         <Image size={props.size} source={props.image} />
       </SharedElement>

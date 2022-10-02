@@ -6,8 +6,12 @@ const LIMIT_POKEMON_REQUEST = 10;
 const mappResponseToPokemon = (pokemon: PokemonResponse): Pokemon => ({
   id: pokemon.id,
   name: pokemon.name,
+  abilities: pokemon.abilities,
+  height: pokemon.height,
+  base_experience: pokemon.base_experience,
   sprites: pokemon.sprites,
   types: pokemon.types,
+  weight: pokemon.weight,
 });
 
 export const fetchPokemons: Action = async (dispatch, getState) => {
@@ -73,7 +77,7 @@ export const toggleFavorite =
         : addToFavorites(id, pokemons, favorites);
       dispatch({
         type: 'UPDATE_FAVORITES_SUCCESS',
-        payload: {favorites: newFavorites},
+        payload: {favorites: [...newFavorites]},
       });
     } catch (error) {
       dispatch({type: 'UPDATE_FAVORITES_FAIL'});
