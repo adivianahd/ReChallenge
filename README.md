@@ -13,7 +13,7 @@ _Prueba Tecnica de Reba_
 ## Instalación
 
 - git clone https://github.com/adivianahd/ReChallenge
-- cd pokedex-challenge
+- cd re-challenge
 - npm install
 - npm run android/ios
 
