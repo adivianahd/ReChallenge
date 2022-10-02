@@ -29,18 +29,21 @@ function App() {
               return [
                 {
                   id: `pokemon.${pokemon.id}.image`,
-                  animation: 'fade-in',
+                  animation: 'fade',
                   resize: 'stretch',
+                  align: 'center-center',
                 },
                 {
                   id: `pokemon.${pokemon.id}.name`,
                   animation: 'fade-in',
                   resize: 'clip',
+                  align: 'center-center',
                 },
                 {
-                  id: `pokemon.${pokemon.id}.details`,
-                  animation: 'fade-in',
-                  resize: 'clip',
+                  id: `pokemon.${pokemon.id}.favorite`,
+                  animation: 'move',
+                  resize: 'stretch',
+                  align: 'center-center',
                 },
               ];
             }}

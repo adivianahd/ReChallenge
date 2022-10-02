@@ -1,14 +1,12 @@
+import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import * as React from 'react';
 import {
   SafeAreaView,
   ScrollView,
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
-import {SharedElement} from 'react-navigation-shared-element';
-import {Text, Card, Image} from '../components';
-import {Capitalize} from '../helpers/utils';
+import {PokeCard, Text} from '../components';
 
 type RootStackParamList = {
   Home: {};
@@ -25,25 +23,20 @@ const Focus = (props: FocusProps) => {
     <SafeAreaView>
       <StatusBar />
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <Card color="YELLOW">
-          <SharedElement id={`pokemon.${pokemon.id}.image`}>
-            <Image
-              size="L"
-              source={{
-                uri: pokemon.sprites.front_default,
-              }}
-            />
-          </SharedElement>
-          <SharedElement id={`pokemon.${pokemon.id}.name`}>
-            <Text class="TITLE">{Capitalize(pokemon.name)}</Text>
-          </SharedElement>
-          <SharedElement id={`pokemon.${pokemon.id}.details`}>
-            <TouchableOpacity
-              onPress={() => navigation.push('Detail', {pokemon})}>
-              <Text class="COMMON">More details...</Text>
-            </TouchableOpacity>
-          </SharedElement>
-        </Card>
+        <PokeCard
+          key={pokemon.id}
+          id={pokemon.id}
+          size="L"
+          image={{
+            uri: pokemon.sprites.front_default,
+          }}
+          name={pokemon.name}
+          type={pokemon.types[0].type.name}
+        />
+
+        <TouchableOpacity onPress={() => navigation.push('Detail', {pokemon})}>
+          <Text class="COMMON">More details...</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );

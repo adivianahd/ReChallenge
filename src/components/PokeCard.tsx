@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {SharedElement} from 'react-navigation-shared-element';
 import {Capitalize} from '../helpers/utils';
 import {FavoriteButton} from './FavoriteButton';
 import {Card, Text, Image} from './index';
@@ -35,9 +36,15 @@ interface CardProps {
 const PokeCard = (props: CardProps) => {
   return (
     <Card size={props.size} color={pokeColor[props.type] || 'white'}>
-      <FavoriteButton id={props.id} />
-      <Image size={props.size} source={props.image} />
-      <Text class="TITLE">{Capitalize(props.name)}</Text>
+      <SharedElement id={`pokemon.${props.id}.favorite`}>
+        <FavoriteButton id={props.id} />
+      </SharedElement>
+      <SharedElement id={`pokemon.${props.id}.image`}>
+        <Image size={props.size} source={props.image} />
+      </SharedElement>
+      <SharedElement id={`pokemon.${props.id}.name`}>
+        <Text class="TITLE">{Capitalize(props.name)}</Text>
+      </SharedElement>
     </Card>
   );
 };

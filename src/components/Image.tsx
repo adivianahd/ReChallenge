@@ -8,19 +8,18 @@ const XS = css`
 `;
 
 const S = css`
-  width: 75px;
-  height: 55px;
+  width: 72px;
+  height: 72px;
 `;
 
 const M = css`
-  background-image: cover;
-  width: 100px;
-  height: 115px;
+  width: 96px;
+  height: 96px;
 `;
 
 const L = css`
-  width: 300px;
-  height: 280px;
+  width: 288px;
+  height: 288px;
 `;
 
 const sizes = {
@@ -35,6 +34,5 @@ interface ImageProps {
 }
 
 export default styled.Image<ImageProps>`
-  margin-right: 5px;
   ${(props: ImageProps) => sizes[props.size] || ''}
 `;
