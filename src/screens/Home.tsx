@@ -5,6 +5,7 @@ import {FlatList} from 'react-native-gesture-handler';
 import {SharedElement} from 'react-navigation-shared-element';
 import {useSelector} from 'react-redux';
 import {Card, Loader, PokeCard, Text} from '../components';
+import {useFirstRender} from '../hooks/use-first-render';
 import {useAppDispatch} from '../redux';
 import {fetchPokemons} from '../redux/actions';
 import {getFavorites, getIsLoading, getPokemons} from '../redux/selectors';
@@ -22,11 +23,13 @@ const Home = (props: HomeProps) => {
   const pokemons = useSelector(getPokemons);
   const favorites = useSelector(getFavorites);
   const isLoading = useSelector(getIsLoading);
+  const isFirstRender = useFirstRender();
 
   React.useEffect(() => {
-    dispatch(fetchPokemons);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (isFirstRender) {
+      dispatch(fetchPokemons);
+    }
+  }, [isFirstRender]);
 
   const data = ['Favorites', ...favorites, 'All', ...pokemons];
 
